@@ -1,0 +1,107 @@
+---
+# tasks file for openbox-archlinux
+
+- pacman:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items:
+    - feh
+    - launchy
+    - menumaker
+    - openbox
+    - plank
+    - python-pip        # needed to install lxml
+    - python2-pip       # needed to install lxml
+    - xorg-xinit
+    - xterm
+  tags:
+    - openbox
+
+- name: auto start openbox
+  become: no
+  blockinfile:
+    path: /home/{{ ansible_ssh_user }}/.xinitrc
+    create: yes
+    block: |
+      export DISPLAY=:0.0
+      exec openbox-session
+  tags:
+    - openbox
+
+- name: copy configuration
+  become: no
+  shell: cp -R /etc/xdg/openbox /home/{{ ansible_ssh_user }}/.config/
+  tags:
+    - openbox
+
+- name: configure plank
+  become: no
+  template:
+    src: templates/plank-settings.j2
+    dest: /home/{{ ansible_ssh_user }}/.config/plank/dock1/settings
+  tags:
+    - config
+    - openbox
+    - plank
+
+- name: autoload dock
+  become: no
+  blockinfile:
+    path: /home/{{ ansible_ssh_user }}/.config/openbox/autostart
+    block: |
+      # -- load the dock Plank
+      plank &
+      # -- load the app laucher Launchy
+      launchy &
+      # -- locad the wallpaper image
+      feh --bg-scale ~/.wallpapers/darth-vader-01.jpg &
+  tags:
+    - config
+    - launchy
+    - openbox
+    - plank
+    - tint2
+
+- name: Install python lxml module needed by the ansible xml module
+  pip:
+    name: lxml
+    state: latest
+  tags:
+    - config
+    - openbox
+
+- name: copy theme files
+  become: no
+  copy:
+    src: Mistral
+    dest: /home/{{ ansible_ssh_user }}/.themes
+    mode: 0644
+    directory_mode: 0755
+  tags:
+    - config
+    - openbox
+
+- name: configure Openbox for best performance
+  become: no
+  xml:
+    path: /home/{{ ansible_ssh_user }}/.config/openbox/rc.xml
+    xpath: /x:openbox_config/{{ item.xpath }}
+    value: "{{ item.value }}"
+    namespaces:
+      x: http://openbox.org/3.4/rc
+  with_items: "{{ openbox_config }}"
+  tags:
+    - config
+    - openbox
+
+- name: configuring wallpaper background
+  become: no
+  copy:
+    src: wallpapers/
+    dest: /home/{{ ansible_ssh_user }}/.wallpapers/
+    mode: 0644
+    directory_mode: 0755
+  tags:
+    - config
+    - openbox

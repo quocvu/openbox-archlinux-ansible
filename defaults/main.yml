@@ -1,0 +1,19 @@
+---
+# defaults file for openbox-archlinux
+
+dock_hide_mode: 0
+dock_icon_size: 48
+dock_position: 3
+dock_theme: "Gtk+"
+
+# do not remove the double quote ("), it has to be a string type
+desktop_number: "3"
+
+openbox_config:
+  - { xpath: "x:placement/x:monitor", value: "Mouse" }
+  - { xpath: "x:placement/x:primaryMonitor", value: "2" }
+  - { xpath: "x:theme/x:name", value: "Mistral" }
+  - { xpath: "x:theme/x:titleLayout", value: "NLIMCSD" }
+  - { xpath: "x:theme/x:animateIconify", value: "no" }
+  - { xpath: "x:desktops/x:number", value: "3" }
+  - { xpath: "x:resize/x:drawContents", value: "no" }

@@ -1,0 +1,21 @@
+galaxy_info:
+  author: Quoc Vu
+  description: Install and configure OpenBox window manager
+  company: N/A
+  min_ansible_version: 2.4
+  github_branch: master
+  platforms:
+    - name: ArchLinux
+      versions:
+        - all
+  galaxy_tags:
+    - archlinux
+    - dock
+    - linux
+    - manager
+    - openbox
+    - openbox3
+    - windows
+    - windows manager
+
+dependencies: []
