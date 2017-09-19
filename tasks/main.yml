@@ -11,8 +11,6 @@
     - menumaker
     - openbox
     - plank
-    - python-pip        # needed to install lxml
-    - python2-pip       # needed to install lxml
     - xorg-xinit
     - xterm
   tags:
@@ -45,7 +43,16 @@
     - openbox
     - plank
 
-- name: autoload dock
+- name: add apps launcher to plank
+  become: no
+  template:
+    src: templates/plank-launcher.j2
+    dest: /home/{{ ansible_ssh_user }}/.config/plank/dock1/launchers/{{ item }}.dockitem
+  with_items: "{{ launchers }}"
+  tags:
+    - dev
+
+- name: autoload dock, launcher, and set wallpaper
   become: no
   blockinfile:
     path: /home/{{ ansible_ssh_user }}/.config/openbox/autostart
@@ -61,23 +68,33 @@
     - launchy
     - openbox
     - plank
-    - tint2
+
+- name: copy theme files
+  become: no
+  copy:
+    src: themes/Mistral
+    dest: /home/{{ ansible_ssh_user }}/.themes
+    mode: 0644
+    directory_mode: 0755
+  tags:
+    - config
+    - openbox
+
+- name: configuring wallpaper background
+  become: no
+  copy:
+    src: wallpapers/
+    dest: /home/{{ ansible_ssh_user }}/.wallpapers/
+    mode: 0644
+    directory_mode: 0755
+  tags:
+    - config
+    - openbox
 
 - name: Install python lxml module needed by the ansible xml module
   pip:
     name: lxml
     state: latest
-  tags:
-    - config
-    - openbox
-
-- name: copy theme files
-  become: no
-  copy:
-    src: Mistral
-    dest: /home/{{ ansible_ssh_user }}/.themes
-    mode: 0644
-    directory_mode: 0755
   tags:
     - config
     - openbox
@@ -91,17 +108,6 @@
     namespaces:
       x: http://openbox.org/3.4/rc
   with_items: "{{ openbox_config }}"
-  tags:
-    - config
-    - openbox
-
-- name: configuring wallpaper background
-  become: no
-  copy:
-    src: wallpapers/
-    dest: /home/{{ ansible_ssh_user }}/.wallpapers/
-    mode: 0644
-    directory_mode: 0755
   tags:
     - config
     - openbox

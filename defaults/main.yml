@@ -6,9 +6,6 @@ dock_icon_size: 48
 dock_position: 3
 dock_theme: "Gtk+"
 
-# do not remove the double quote ("), it has to be a string type
-desktop_number: "3"
-
 openbox_config:
   - { xpath: "x:placement/x:monitor", value: "Mouse" }
   - { xpath: "x:placement/x:primaryMonitor", value: "2" }

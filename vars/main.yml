@@ -1,2 +1,16 @@
 ---
 # vars file for openbox-archlinux
+
+launchers:
+  - atom
+  - firefox
+  - google-chrome
+  - libreoffice-calc
+  - libreoffice-draw
+  - libreoffice-impress
+  - libreoffice-writer
+  - rhythmbox
+  - roundcubemail
+  - simplenote
+  - speedcrunch
+  - uxterm

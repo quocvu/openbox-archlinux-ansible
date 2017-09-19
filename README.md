@@ -1,46 +1,59 @@
-Role Name
-=========
+[![Build Status](https://img.shields.io/travis/quocvu/nodejs-ansible.svg)](https://travis-ci.org/quocvu/nodejs-ansible)
 
-A brief description of the role goes here.
+openbox-archlinux
+=================
+
+Install and configure OpenBox window manager on ArchLinux.
+Configure theme, wallpaper, menu, and optimize for best performance.
 
 Requirements
 ------------
 
-Ansible 2.4, internet connection, a user account on the host target.
+Ansible, internet connection, a user account on the host target.
 Because this playbook puts files in the user home folder, it as advised to
-use the same account as you would normally use with your desktop to run with
-Ansible.
+use the same account as you would normally use with your desktop to run
+with Ansible.
+
+Ansible 2.4 is required to manipulate XML documents.  To install it:
+
+    $ sudo CFLAGS=-Qunused-arguments CPPFLAGS=-Qunused-arguments pip install git+https://github.com/ansible/ansible.git@stable-2.4
 
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+* `launchers`: list of apps to put in the dock
+* `dock_hide_mode`: If 0, the dock won't hide.  If 1, the dock intelligently hides.  If 2, the dock auto-hides. If 3, the dock dodges active maximized windows. If 4, the dock dodges every window.
+* `dock_icon_size`: The size of dock icons (in pixels) in the dock
+* `dock_position`: The position for the dock on the monitor.  If 0, left.  If 1, right.  If 2, top.  If 3, bottom.
+* `dock_theme`: The name of the dock's theme to use
+* `openbox_config`: key value pairs of OpenBox settings
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Needs Python
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+To install Openbox windows manager, add the following in your playbook:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```
+- hosts: servers
+  roles:
+    - { role: quocvu.openbox-archlinux }
+```
 
 License
 -------
 
-BSD
+MIT
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Quoc Vu  
 
-install Ansible 2.4 dev branch
-
-    $ sudo CFLAGS=-Qunused-arguments CPPFLAGS=-Qunused-arguments pip install git+https://github.com/ansible/ansible.git@stable-2.4
+* https://linkedin.com/in/quocvu  
+* https://github.com/quocvu

@@ -1,8 +1,11 @@
 galaxy_info:
   author: Quoc Vu
-  description: Install and configure OpenBox window manager
+  description: >
+    Install and configure OpenBox window manager on ArchLinux.
+    Configure theme, wallpaper, menu, and optimize for best performance.
   company: N/A
-  min_ansible_version: 2.4
+  license: MIT
+  min_ansible_version: 2.4      # 2.4 has the XML parser
   github_branch: master
   platforms:
     - name: ArchLinux
@@ -11,11 +14,16 @@ galaxy_info:
   galaxy_tags:
     - archlinux
     - dock
+    - launcher
     - linux
     - manager
+    - menu
     - openbox
     - openbox3
+    - theme
+    - wallpaper
     - windows
     - windows manager
-
-dependencies: []
+    - xorg
+dependencies:
+  - { role: quocvu.python-archlinux, install_python2: false }
