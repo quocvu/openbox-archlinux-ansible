@@ -22,7 +22,7 @@ install:
   - printf '[defaults]\nroles_path=../' >ansible.cfg
 
   # install required role
-  - ansible-galaxy install quocvu.python-ansible
+  - ansible-galaxy install quocvu.python-archlinux
 
 script:
   # Basic role syntax check
